@@ -1,0 +1,74 @@
+---
+title: "RefineTitanic"
+author: "Tom"
+date: "January 17, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+##Assignment
+
+#0: Load the data in RStudio
+Save the data set as a CSV file called titanic_original.csv and load it in RStudio into a data frame.
+
+#1: Port of embarkation
+The embarked column has some missing values, which are known to correspond to passengers who actually embarked at Southampton. Find the missing values and replace them with S. (Caution: Sometimes a missing value might be read into R as a blank or empty string.)
+
+#2: Age
+You’ll notice that a lot of the values in the Age column are missing. While there are many ways to fill these missing values, using the mean or median of the rest of the values is quite common in such cases.
+Calculate the mean of the Age column and use that value to populate the missing values
+
+Think about other ways you could have populated the missing values in the age column. Why would you pick any of those over the mean (or not)?
+
+
+#3: Lifeboat
+You’re interested in looking at the distribution of passengers in different lifeboats, but as we know, many passengers did not make it to a boat :-( This means that there are a lot of missing values in the boat column. Fill these empty slots with a dummy value e.g. the string 'None' or 'NA'
+
+#4: Cabin
+You notice that many passengers don’t have a cabin number associated with them.
+Does it make sense to fill missing cabin numbers with a value?
+What does a missing value here mean?
+You have a hunch that the fact that the cabin number is missing might be a useful indicator of survival. Create a new column has_cabin_number which has 1 if there is a cabin number, and 0 otherwise.
+
+#using dplyr
+```{r}
+library(dplyr)
+```
+
+#import titanic data
+#assign to t
+```{r}
+source("import_data.R")
+t <- titanic3
+
+```
+
+#1: Pork of embarkation
+```{r}
+#Find row that value of embarked is NA
+index <-is.na(t$embarked)
+#
+t$embarked[index] <- "S"
+```
+#2: Age
+#Fill missing value with mean of age
+```{r}
+#calculate age mean and round to 1 decimal
+age_mean <- mean(t$age, na.rm = TRUE) %>% round(1)
+me <- median(titanic3$age, na.rm = TRUE)
+sd <- sd(titanic3$age, na.rm = TRUE)
+
+#age_mean = 29.9
+#median = 28
+#standar_deviation = 14.4
+#In this case, suing age_mean or median to fill out the missing value is more approriate since there couldn't be so many teenagers on board at that time.
+
+#assign age mean for missing value
+index <-is.na(t$age)
+t$age[index] <- age_mean
+
+
+```
+
