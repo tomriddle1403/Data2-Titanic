@@ -71,5 +71,16 @@ t$age[index] <- age_mean
 
 ```
 
+#3: Lifeboat
+```{r}
+#Fill missing value of boat with None
+index <- is.na(t$boat)
+t$boat[index] <- "None"
+```
 
+#4: Cabin number
+```{r}
+index <- !is.na(t$cabin)
+t["has_cabin_number"] <- as.numeric(index)
+```
 
