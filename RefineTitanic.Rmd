@@ -69,6 +69,7 @@ sd <- sd(titanic3$age, na.rm = TRUE)
 index <-is.na(t$age)
 t$age[index] <- age_mean
 
-
 ```
+
+
 
