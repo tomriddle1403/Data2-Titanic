@@ -84,3 +84,8 @@ index <- !is.na(t$cabin)
 t["has_cabin_number"] <- as.numeric(index)
 ```
 
+#6: Export original and clean data
+```{r}
+source("export_data.R")
+```
+
